@@ -82,19 +82,11 @@ class DataBaseHandle(object):
             self.cursor.execute(sql) # 返回 查询数据 条数 可以根据 返回值 判定处理结果
 
             data = self.cursor.fetchall() # 返回所有记录列表
-
-            print(data)
-
-            # 结果遍历
-            for row in data:
-                sid = row[0]
-                name = row[1]
-                # 遍历打印结果
-                print('sid = %s,  name = %s'%(sid,name))
         except:
             print('Error: unable to fecth data')
         finally:
             self.cursor.close()
+        return data
 
     def closeDb(self):
         ''' 数据库连接关闭 '''
@@ -102,14 +94,10 @@ class DataBaseHandle(object):
 
 if __name__ == '__main__':
 
-    DbHandle = DataBaseHandle('127.0.0.1','adil','helloyyj','AdilTest',3306)
+    DbHandle = DataBaseHandle('192.168.1.239','root','Mysql_1234','knowledge',3306)
+    dataStr = DbHandle.selectDb('select * from t_course')
+    print(dataStr)
+    for i in(dataStr):
+        print(i)
 
-    DbHandle.insertDB('insert into test(name) values ("%s")'%('FuHongXue'))
-    DbHandle.insertDB('insert into test(name) values ("%s")'%('FuHongXue'))
-    DbHandle.selectDb('select * from test')
-    DbHandle.updateDb('update test set name = "%s" where sid = "%d"' %('YeKai',22))
-    DbHandle.selectDb('select * from test')
-    DbHandle.insertDB('insert into test(name) values ("%s")'%('LiXunHuan'))
-    DbHandle.deleteDB('delete from test where sid > "%d"' %(25))
-    DbHandle.selectDb('select * from test')
     DbHandle.closeDb()
