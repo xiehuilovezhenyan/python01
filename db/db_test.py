@@ -1,6 +1,7 @@
 # encoding=utf-8
 import pymysql
 import redis
+import time
 
 
 def getListTest(sql):
