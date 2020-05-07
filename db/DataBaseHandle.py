@@ -88,6 +88,19 @@ class DataBaseHandle(object):
             self.cursor.close()
         return data
 
+    def selectCount(self, sql):
+        ''' 数据库查询 '''
+        self.cursor = self.db.cursor()
+        try:
+            self.cursor.execute(sql)  # 返回 查询数据 条数 可以根据 返回值 判定处理结果
+
+            data = self.cursor.fetchone()  # 返回所有数量
+        except:
+            print('Error: unable to fecth data')
+        finally:
+            self.cursor.close()
+        return data
+
     def closeDb(self):
         ''' 数据库连接关闭 '''
         self.db.close()
